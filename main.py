@@ -12,12 +12,16 @@ def about():
     return render_template("about.html")
 
 @app.route("/brandon")
-def salvador():
+def brandon():
     return "Hello, Brandon"
 
 @app.route("/fancy")
 def fancy():
     return render_template("fancy.html")
+
+@app.route("/todo")
+def todo():
+    return render_template("todo.html")
 
 
 if __name__ == "__main__":
