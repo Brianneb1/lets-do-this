@@ -1,5 +1,5 @@
 .idea/*
-venv/*
+env/*
 node_modules/*
 lets-do-this.iml
 package-lock.json
