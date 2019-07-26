@@ -1,1 +1,1 @@
-web: gunicorn app:lets-do-this
+web: gunicorn main:app
