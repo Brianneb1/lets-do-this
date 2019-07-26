@@ -24,6 +24,14 @@ for (i = 0; i < close.length; i++){
 var list = document.querySelector('UL');
 list.addEventListener('click', check , false);
 
+// create new list item on enter
+var input = document.getElementById("myInput");
+input.addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        newElement();
+    }
+});
+
 function check(ev) {
     if (ev.target.tagName === 'LI') {
         ev.target.classList.toggle('checked');
