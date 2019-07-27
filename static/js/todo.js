@@ -18,6 +18,20 @@ for (i = 0; i < close.length; i++){
         var div = this.parentElement;
         div.style.display = "none";
     }
+
+    $.ajax({
+        url: '/delete_task',
+        type: 'DELETE',
+        data: { task: $("#myInput").val() },
+        success: function(response){
+          console.log(response.message);
+          console.log(response.keys);
+          console.log(response.data);
+          },
+          error: function(error) {
+              console.log(error);
+          }
+    });
 }
 
 // add checked symbol when clicking on list item
@@ -63,4 +77,19 @@ function newElement() {
             div.style.display = "none";
         }
     }
+
+    $.ajax({
+            type: "POST",
+            url: "/add_task",
+            data: { task: $("#myInput").val(), checked = False },
+            success: function(response){
+                console.log(response.message);
+                console.log(response.keys);
+                console.log(response.data);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
 }
+
