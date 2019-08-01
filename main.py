@@ -1,3 +1,5 @@
+from copy import copy
+
 from flask import Flask, render_template, send_from_directory, request
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
@@ -6,7 +8,6 @@ import os
 import sys
 import json
 
-from env.Lib.copy import copy
 
 app = Flask(__name__)
 
