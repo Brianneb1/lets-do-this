@@ -78,18 +78,18 @@ function newElement() {
         }
     }
 
-    $.ajax({
-            type: "POST",
-            url: "/add_task",
-            data: { task: $("#myInput").val(), checked = False },
-            success: function(response){
-                console.log(response.message);
-                console.log(response.keys);
-                console.log(response.data);
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
+//    $.ajax({
+//            type: "POST",
+//            url: "/add_task",
+//            data: { task: $("#myInput").val(), checked = False },
+//            success: function(response){
+//                console.log(response.message);
+//                console.log(response.keys);
+//                console.log(response.data);
+//            },
+//            error: function(error) {
+//                console.log(error);
+//            }
+//        });
 }
 

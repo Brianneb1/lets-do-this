@@ -12,8 +12,12 @@
 <body>
     <div id="myDIV" class="header">
         <h2>My To Do List</h2>
-        <input type="text" id="myInput" placeholder="To do item...">
-        <span onclick="newElement()" class="addBtn">Add</span>
+        <form method="POST" action="{{ url_for('add_task') }}">
+            <label name="myInput" for="myInput">Enter a new task!</label>
+            <input name="myInput" type="text" id="myInput" placeholder="To do item...">
+            <button onclick="newElement()" type="submit" class="addBtn">Add</button>
+        </form>
+<!--        <span onclick="newElement()" class="addBtn">Add</span>-->
     </div>
 
     <ul id="myUL">

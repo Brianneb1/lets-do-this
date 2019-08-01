@@ -40,17 +40,22 @@ def about():
 def fancy():
     return render_template("fancy.html")
 
+@app.route("/tasks")
+def tasks():
+    tasks = []
+    # tasks = db.session.query(Task).all()
+    return render_template("todo.html", tasks=tasks)
 
-@app.route("/add_task", methods=['GET','POST'])
+
+@app.route("/add_task", methods=['POST'])
 def add_task():
-    # tasks = []
     # if request.form:
     #     task = request.form['task']
     #     t = Task(task=task)
     #     db.session.add(t)
     #     db.session.commit()
     #     tasks = db.session.query(Task).all()
-    intask = Task(request.form['task'])
+    intask = Task(request.form['myInput'])
     task_data = copy(intask. __dict__ )
     del task_data["_sa_instance_state"]
     try:
@@ -60,8 +65,7 @@ def add_task():
         print("\n FAILED entry: {}\n".format(json.dumps(task_data)))
         print(e)
         sys.stdout.flush()
-    tasks = db.session.query(Task).all()
-    return render_template("todo.html", tasks=tasks)
+    return tasks()
 
 @app.route("/delete_task", methods=['DELETE'])
 def delete_task():
