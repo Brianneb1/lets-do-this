@@ -1,16 +1,19 @@
 from flask import Flask, render_template, send_from_directory, request
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from flask_heroku import Heroku
 import os
+import sys
+import json
+
+from env.Lib.copy import copy
 
 app = Flask(__name__)
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'app.db')
-SQLALCHEMY_TRACK_MODIFICATIONS = False
-
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+heroku = Heroku(app)
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+# migrate = Migrate(app, db)
 
 class Task(db.Model):
     task = db.Column(db.String(120), primary_key=True)
@@ -39,13 +42,24 @@ def fancy():
 
 @app.route("/add_task", methods=['GET','POST'])
 def add_task():
-    tasks = []
-    if request.form:
-        task = request.form['task']
-        t = Task(task=task)
-        db.session.add(t)
+    # tasks = []
+    # if request.form:
+    #     task = request.form['task']
+    #     t = Task(task=task)
+    #     db.session.add(t)
+    #     db.session.commit()
+    #     tasks = db.session.query(Task).all()
+    intask = Task(request.form['task'])
+    task_data = copy(intask. __dict__ )
+    del task_data["_sa_instance_state"]
+    try:
+        db.session.add(intask)
         db.session.commit()
-        tasks = db.session.query(Task).all()
+    except Exception as e:
+        print("\n FAILED entry: {}\n".format(json.dumps(task_data)))
+        print(e)
+        sys.stdout.flush()
+    tasks = db.session.query(Task).all()
     return render_template("todo.html", tasks=tasks)
 
 @app.route("/delete_task", methods=['DELETE'])
