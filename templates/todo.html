@@ -5,29 +5,32 @@
     <title>To Do List</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="../static/js/todo.js" type="text/javascript"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link rel="stylesheet" href="{{ url_for('static',     filename='css/todo.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/todo.css') }}" />
 </head>
 
 <body>
     <div id="myDIV" class="header">
         <h2>My To Do List</h2>
         <form method="POST" action="{{ url_for('add_task') }}">
-            <label name="myInput" for="myInput">Enter a new task!</label>
-            <input name="myInput" type="text" id="myInput" placeholder="To do item...">
-            <button onclick="newElement()" type="submit" class="addBtn">Add</button>
+            <label for="myInput">Enter a new task!</label>
+            <input name="newTask" type="text" id="myInput" placeholder="To do item...">
+            <button type="submit" onclick="newElement()" class="addBtn">Add</button>
         </form>
-<!--        <span onclick="newElement()" class="addBtn">Add</span>-->
     </div>
 
     <ul id="myUL">
         {% for t in tasks %}
-            <li>{{t.task}}</li>
+            {% if t.checked==true %}
+                <li class="checked">{{t.task}}</li>
+            {% else %}
+                <li>{{t.task}}</li>
+            {% endif %}
         {% endfor %}
     </ul>
 </body>
 
-<script src="../static/js/todo.js" type="text/javascript"></script>
-<script src="jquery-3.4.1.min.js"></script>
 
 </html>

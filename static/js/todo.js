@@ -35,16 +35,20 @@ for (i = 0; i < close.length; i++){
 }
 
 // add checked symbol when clicking on list item
-var list = document.querySelector('UL');
-list.addEventListener('click', check , false);
+var list = document.getElementById('myUL');
+if (list){
+    list.addEventListener('click', check , false);
+}
 
 // create new list item on enter
 var input = document.getElementById("myInput");
+if (input){
 input.addEventListener("keyup", function(event) {
     if (event.key === "Enter") {
         newElement();
     }
-});
+ }
+)};
 
 function check(ev) {
     if (ev.target.tagName === 'LI') {
@@ -54,6 +58,7 @@ function check(ev) {
 
 // create new list item when clicking add
 function newElement() {
+
     var li = document.createElement('LI');
     var inputValue = document.getElementById("myInput").value;
     var t = document.createTextNode(inputValue);
@@ -63,7 +68,6 @@ function newElement() {
     } else {
         document.getElementById('myUL').appendChild(li);
     }
-    document.getElementById('myInput').value = "";
 
     var span = document.createElement("SPAN");
     var txt = document.createTextNode("\u00D7");
@@ -78,18 +82,5 @@ function newElement() {
         }
     }
 
-//    $.ajax({
-//            type: "POST",
-//            url: "/add_task",
-//            data: { task: $("#myInput").val(), checked = False },
-//            success: function(response){
-//                console.log(response.message);
-//                console.log(response.keys);
-//                console.log(response.data);
-//            },
-//            error: function(error) {
-//                console.log(error);
-//            }
-//        });
 }
 

@@ -42,30 +42,27 @@ def fancy():
 
 @app.route("/tasks")
 def tasks():
-    tasks = []
-    # tasks = db.session.query(Task).all()
+    app.logger.info("called /tasks")
+    tasks = db.session.query(Task).all()
+    app.logger.info("queried")
     return render_template("todo.html", tasks=tasks)
 
 
 @app.route("/add_task", methods=['POST'])
 def add_task():
-    # if request.form:
-    #     task = request.form['task']
-    #     t = Task(task=task)
-    #     db.session.add(t)
-    #     db.session.commit()
-    #     tasks = db.session.query(Task).all()
-    intask = Task(request.form['myInput'])
-    task_data = copy(intask. __dict__ )
-    del task_data["_sa_instance_state"]
-    try:
-        db.session.add(intask)
-        db.session.commit()
-    except Exception as e:
-        print("\n FAILED entry: {}\n".format(json.dumps(task_data)))
-        print(e)
-        sys.stdout.flush()
+    intask = Task(request.form['newTask'])
+    # json_data = request.get_json(force=True)
+    # print(json_data)
+    # app.logger.info(json_data)
+    # intask = json_data['newTask']
+    app.logger.info(intask)  # empty
+    # task_data = copy(intask. __dict__ )
+    # del task_data["_sa_instance_state"]
+    db.session.add(intask)
+    db.session.commit()
+    app.logger.info("committed")
     return tasks()
+
 
 @app.route("/delete_task", methods=['DELETE'])
 def delete_task():
