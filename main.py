@@ -51,13 +51,7 @@ def tasks():
 @app.route("/add_task", methods=['POST'])
 def add_task():
     intask = Task(request.form['newTask'])
-    # json_data = request.get_json(force=True)
-    # print(json_data)
-    # app.logger.info(json_data)
-    # intask = json_data['newTask']
-    app.logger.info(intask)  # empty
-    # task_data = copy(intask. __dict__ )
-    # del task_data["_sa_instance_state"]
+    app.logger.info(intask)
     db.session.add(intask)
     db.session.commit()
     app.logger.info("committed")
@@ -67,8 +61,11 @@ def add_task():
 @app.route("/delete_task", methods=['DELETE'])
 def delete_task():
     t = request.form['task']
-    db.query.filter_by(task=t).delete(t)
+    app.logger.info(t)
+    db.session.query(Task).filter(Task.task == t).delete()
     db.session.commit()
+    return tasks()
+
 
 @app.route('/favicon.ico')
 def favicon():

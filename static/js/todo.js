@@ -1,37 +1,41 @@
-// create "close" button for each list item
-var myNodeList = document.getElementsByTagName("LI");
-var i;
-for (i=0; i<myNodeList.length; i++)
-{
-    var span = document.createElement("SPAN");
-    var txt = document.createTextNode("\u00D7");
-    span.className = "close";
-    span.appendChild(txt);
-    myNodeList[i].appendChild(span);
-}
-
-//click on close button to hide list item
-var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++){
-    close[i].onclick = function() {
-        var div = this.parentElement;
-        div.style.display = "none";
+function closeButton(){
+    // create "close" button for each list item
+    var myNodeList = document.getElementsByTagName("LI");
+    var i;
+    for (i=0; i<myNodeList.length; i++)
+    {
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        myNodeList[i].appendChild(span);
     }
 
-    $.ajax({
-        url: '/delete_task',
-        type: 'DELETE',
-        data: { task: $("#myInput").val() },
-        success: function(response){
-          console.log(response.message);
-          console.log(response.keys);
-          console.log(response.data);
-          },
-          error: function(error) {
-              console.log(error);
-          }
-    });
+
+    //click on close button to hide list item
+    var close = document.getElementsByClassName("close");
+    var i;
+    for (i = 0; i < close.length; i++){
+        close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.display = "none";
+            var delTask = new String(div.innerHTML.slice(0,div.innerHTML.indexOf("<")));
+             $.ajax({
+                        url: '/delete_task',
+                        type: 'DELETE',
+                        data: { task: delTask },
+                        success: function(response){
+                          console.log(response.message);
+                          console.log(response.keys);
+                          console.log(response.data);
+                          },
+                          error: function(error) {
+                              console.log(error);
+                          }
+                    });
+        }
+    }
+
 }
 
 // add checked symbol when clicking on list item
