@@ -1,6 +1,16 @@
+@charset "UTF-8";
+@import "https://fonts.googleapis.com/css?family=Indie+Flower|Raleway&display=swap";
+
 /* Include the padding and border in an element's total width and height */
 * {
     box-sizing: border-box;
+}
+
+h2 {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    padding-bottom: .35em;
 }
 
 /* Remove margins and padding from the list */
@@ -15,7 +25,8 @@ ul li {
     position: relative;
     padding: 12px 8px 12px 40px;
     background: #eee;
-    font-size: 18px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1em;
     transition: 0.2s;
 
     /* make the list items unselectable */
@@ -65,14 +76,16 @@ ul li.checked::before {
 }
 
 .close:hover {
-    background-color: #f44336;
+    background-color: #52B39C;
     color: white;
 }
 
 /* Style the header */
 .header {
-    background-color: #f44336;
-    padding: 30px 40px;
+    background-color: #52B39C;
+    font-family: 'Indie Flower', cursive;
+    font-size: 2.5em;
+    padding: .75em 1.75em;
     color: white;
     text-align: center;
 }
@@ -90,20 +103,22 @@ input {
     border: none;
     border-radius: 0;
     width: 75%;
-    padding: 10px;
+    padding: .625em;
     float: left;
-    font-size: 16px;
+    font-size: .5em;
+    font-family: 'Raleway', sans-serif;
 }
 
 /* Style the "Add" button */
 .addBtn {
-    padding: 10px;
+    padding: .625em;
     width: 25%;
     background: #d9d9d9;
     color: #555;
     float: left;
     text-align: center;
-    font-size: 16px;
+    font-size: .5em;
+    font-family: 'Raleway', sans-serif;
     cursor: pointer;
     transition: 0.3s;
     border-radius: 0;
