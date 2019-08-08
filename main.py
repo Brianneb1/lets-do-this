@@ -67,6 +67,20 @@ def delete_task():
     return tasks()
 
 
+@app.route("/update_task", methods=["POST"])
+def update_task():
+    t = request.form['task']
+    app.logger.info(t)
+    check_task = db.session.query(Task).filter(Task.task == t).first()
+    app.logger.info(check_task)
+    if check_task.checked == False:
+        check_task.checked = True
+    else:
+        check_task.checked = False;
+    db.session.commit()
+    return tasks()
+
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')

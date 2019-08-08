@@ -1,4 +1,4 @@
-function closeButton(){
+function loadElements(){
     // create "close" button for each list item
     var myNodeList = document.getElementsByTagName("LI");
     var i;
@@ -36,12 +36,12 @@ function closeButton(){
         }
     }
 
-}
+    // add checked symbol when clicking on list item
+    var list = document.getElementById('myUL');
+    if (list){
+        list.addEventListener('click', check , false);
+    }
 
-// add checked symbol when clicking on list item
-var list = document.getElementById('myUL');
-if (list){
-    list.addEventListener('click', check , false);
 }
 
 // create new list item on enter
@@ -58,6 +58,20 @@ function check(ev) {
     if (ev.target.tagName === 'LI') {
         ev.target.classList.toggle('checked');
     }
+    var checkTask = new String(ev.target.innerHTML.slice(0,ev.target.innerHTML.indexOf("<")));
+    $.ajax({
+            url: '/update_task',
+            type: 'POST',
+            data: { task: checkTask },
+            success: function(response){
+              console.log(response.message);
+              console.log(response.keys);
+              console.log(response.data);
+              },
+              error: function(error) {
+                  console.log(error);
+              }
+        });
 }
 
 // create new list item when clicking add
