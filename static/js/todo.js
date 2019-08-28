@@ -81,12 +81,22 @@ function newElement() {
     var inputValue = document.getElementById("myInput").value;
     var t = document.createTextNode(inputValue);
     li.appendChild(t);
+
+    // check if empty
     if (inputValue === '') {
         alert("You must type something!");
-    } else {
-        document.getElementById('myUL').appendChild(li);
+        return;
     }
-
+    // check if already in list
+    var task_list = document.getElementsByTagName('LI');
+    for (i = 0; i < task_list.length; i++) {
+        if (inputValue === task_list[i].innerHTML.slice(0, task_list[i].innerHTML.indexOf("<"))){
+            alert("You already have that task!");
+            return;
+        }
+    }
+    // add task
+    document.getElementById('myUL').appendChild(li);
     var span = document.createElement("SPAN");
     var txt = document.createTextNode("\u00D7");
     span.className = "close";

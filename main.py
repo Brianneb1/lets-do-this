@@ -12,6 +12,7 @@ import json
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["SQLALCHEMY_DATABASE_URI"] = 'postgres://jdbzrwypiusgxn:c18624cf57fc6e64fc19d9c245664691541fc01abeeef0f836be048a74e3243c@ec2-174-129-226-232.compute-1.amazonaws.com:5432/dbnb45i2duvp6o'
 heroku = Heroku(app)
 db = SQLAlchemy(app)
 # migrate = Migrate(app, db)
@@ -52,9 +53,16 @@ def tasks():
 def add_task():
     intask = Task(request.form['newTask'])
     app.logger.info(intask)
-    db.session.add(intask)
-    db.session.commit()
-    app.logger.info("committed")
+    if intask.task != "":
+        task_list = db.session.query(Task).all()
+        duplicate = False
+        for task_item in task_list:
+            if task_item.task == intask.task:
+                duplicate = True
+        if not duplicate:
+            db.session.add(intask)
+            db.session.commit()
+            app.logger.info("committed")
     return tasks()
 
 
