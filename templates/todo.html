@@ -29,19 +29,21 @@
             {% else %}
                 <li>{{t.task}}</li>
             {% endif %}
-        <div class="modal">
-            <div class="modal-content">
-                <span class="close-button">&times;</span>
-                <h2>Rename Task</h2>
-                <form method="POST" action="{{ url_for('rename_task') }}">
-                    <input type="hidden" value="{{t.task}}" name="task">
-                    <input name="newTaskName" type="text" id="renameInput" placeholder="Enter new task name...">
-                    <button type="submit" class="addBtn">Rename</button>
-                </form>
-            </div>
-        </div>
         {% endfor %}
     </ul>
+
+    <div class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Rename Task</h2>
+            <form method="POST" action="{{ url_for('rename_task') }}">
+                <input type="hidden" id="task" name="task">
+                <input name="newTaskName" type="text" id="renameInput" placeholder="Enter new task name...">
+                <button type="submit" class="addBtn">Rename</button>
+            </form>
+        </div>
+    </div>
+
 
 
 </body>

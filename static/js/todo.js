@@ -22,24 +22,40 @@ function loadElements(){
         myNodeList[i].appendChild(span);
     }
 
-    //click on edit button to rename item
-    var modal = document.querySelector(".modal");
-    var trigger = document.querySelector(".rename");
-    var closeButton = document.querySelector(".close-button");
+    // open modal
+    var rename = document.getElementsByClassName("rename");
+    var i;
+    for (i = 0; i < rename.length; i++){
+        rename[i].onclick = function() {
+            var div = this.parentElement;
+            var rename_task = new String(div.innerHTML.slice(0,div.innerHTML.indexOf("<")));
 
-    function toggleModal() {
-        modal.classList.toggle("show-modal");
-    }
+             //click on edit button to rename item
+             var modal = document.querySelector(".modal");
+             var trigger = document.querySelector(".rename");
+             var closeButton = document.querySelector(".close-button");
 
-    function windowOnClick(event) {
-        if (event.target === modal) {
-            toggleModal();
+             function toggleModal() {
+                    modal.classList.toggle("show-modal");
+                    // pass in original task name
+                     $(".modal-content #task").val( rename_task );
+                }
+
+                function windowOnClick(event) {
+                    if (event.target === modal) {
+                        toggleModal();
+                    }
+                }
+
+                trigger.addEventListener("click", toggleModal);
+                closeButton.addEventListener("click", toggleModal);
+                window.addEventListener("click", windowOnClick);
+
+
         }
     }
 
-    trigger.addEventListener("click", toggleModal);
-    closeButton.addEventListener("click", toggleModal);
-    window.addEventListener("click", windowOnClick);
+
 
 
     //click on close button to hide list item
