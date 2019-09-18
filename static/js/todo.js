@@ -4,13 +4,14 @@ function loadElements(){
     var i;
     // edit button
     for (i=0; i<myNodeList.length; i++)
-        {
-            var span = document.createElement("SPAN");
-            var txt = document.createTextNode("\uD83D\uDD89");
-            span.className = "rename";
-            span.appendChild(txt);
-            myNodeList[i].appendChild(span);
-        }
+    {
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\uD83D\uDD89");
+        span.className = "rename";
+        span.appendChild(txt);
+        myNodeList[i].appendChild(span);
+    }
+
     // close button
     for (i=0; i<myNodeList.length; i++)
     {
@@ -21,32 +22,25 @@ function loadElements(){
         myNodeList[i].appendChild(span);
     }
 
-
     //click on edit button to rename item
-    var rename = document.getElementsByClassName("rename");
-    var i;
-    for (i = 0; i < rename.length; i++){
-        rename[i].onclick = function() {
-            var div = this.parentElement;
-            // pop up input box filled with previous name
+    var modal = document.querySelector(".modal");
+    var trigger = document.querySelector(".rename");
+    var closeButton = document.querySelector(".close-button");
 
-            var renameTask = new String(div.innerHTML.slice(0,div.innerHTML.indexOf("<")));
-            var newName;
-             $.ajax({
-                        url: '/rename_task',
-                        type: 'UPDATE',
-                        data: { task: renameTask, val: newName },
-                        success: function(response){
-                          console.log(response.message);
-                          console.log(response.keys);
-                          console.log(response.data);
-                          },
-                          error: function(error) {
-                              console.log(error);
-                          }
-                    });
+    function toggleModal() {
+        modal.classList.toggle("show-modal");
+    }
+
+    function windowOnClick(event) {
+        if (event.target === modal) {
+            toggleModal();
         }
     }
+
+    trigger.addEventListener("click", toggleModal);
+    closeButton.addEventListener("click", toggleModal);
+    window.addEventListener("click", windowOnClick);
+
 
     //click on close button to hide list item
     var close = document.getElementsByClassName("close");
@@ -92,9 +86,8 @@ input.addEventListener("keyup", function(event) {
 
 
 function check(ev) {
-    if (ev.target.tagName === 'LI') {
+    if (ev.target.tagName === 'LI' && ev.target.className !== "rename") {
         ev.target.classList.toggle('checked');
-    }
     var checkTask = new String(ev.target.innerHTML.slice(0,ev.target.innerHTML.indexOf("<")));
     $.ajax({
             url: '/update_task',
@@ -109,6 +102,7 @@ function check(ev) {
                   console.log(error);
               }
         });
+    }
 }
 
 // create new list item when clicking add
@@ -148,4 +142,3 @@ function newElement() {
     }
 
 }
-

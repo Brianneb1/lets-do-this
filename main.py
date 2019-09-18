@@ -91,8 +91,13 @@ def update_task():
 
 @app.route("/rename_task", methods=["POST"])
 def rename_task():
-
-
+    t = request.form['task']
+    newTask = request.form['newTaskName']
+    app.logger.info(t)
+    rename_task = db.session.query(Task).filter(Task.task == t).first()
+    app.logger.info(rename_task)
+    rename_task.task = newTask
+    db.session.commit()
     return tasks()
 
 
