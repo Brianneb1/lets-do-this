@@ -24,38 +24,52 @@ function loadElements(){
 
     // open modal
     var rename = document.getElementsByClassName("rename");
-    var i;
-    for (i = 0; i < rename.length; i++){
-        rename[i].onclick = function() {
-            var div = this.parentElement;
-            var rename_task = new String(div.innerHTML.slice(0,div.innerHTML.indexOf("<")));
+    var div = [];
+    var rename_task = [];
+    var modal = [];
+    var trigger = [];
+    var closeButton = [];
+    console.log(rename);
+    console.log(rename[0]);
+    for (var i = 0; i < rename.length; i++){
+        console.log(i);
+        console.log(rename[i]);
+        rename[i].onclick = (function(i) { return function() {
+            console.log(i);
+            console.log(this);
+            console.log(this.parentElement);
+            console.log(this.parentElement.innerHTML);
+            div[i] = this.parentElement;
+            rename_task[i] = new String(div[i].innerHTML.slice(0,div[i].innerHTML.indexOf("<")));
 
              //click on edit button to rename item
-             var modal = document.querySelector(".modal");
-             var trigger = document.querySelector(".rename");
-             var closeButton = document.querySelector(".close-button");
+             modal[i] = document.querySelector(".modal");
+             trigger[i] = document.querySelector(".rename");
+             closeButton[i] = document.querySelector(".close-button");
 
-             trigger.addEventListener("click", toggleModal);
-//             closeButton.addEventListener("click", toggleModal);
+             trigger[i].addEventListener("click", toggleModal(modal[i]));
 
-             function toggleModal() {
+             function toggleModal(modal) {
                     modal.classList.toggle("show-modal");
                     // pass in original task name
-                     $(".modal-content #task").val( rename_task );
+                     $(".modal-content #task").val( rename_task[i] );
               }
 
              window.onclick = function(event) {
-                    if (event.target == modal) {
-                        toggleModal();
+                    if (event.target == modal[i]) {
+                        toggleModal(modal[i]);
                     }
              }
 
-             closeButton.onclick = function(event) {
-                    toggleModal();
+             closeButton[i].onclick = function(event) {
+                    toggleModal(modal[i]);
              }
 
+            }})(i);
         }
-    }
+
+
+    console.log("here");
 
 
 
