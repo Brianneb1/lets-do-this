@@ -35,22 +35,24 @@ function loadElements(){
              var trigger = document.querySelector(".rename");
              var closeButton = document.querySelector(".close-button");
 
+             trigger.addEventListener("click", toggleModal);
+//             closeButton.addEventListener("click", toggleModal);
+
              function toggleModal() {
                     modal.classList.toggle("show-modal");
                     // pass in original task name
                      $(".modal-content #task").val( rename_task );
-                }
+              }
 
-                function windowOnClick(event) {
-                    if (event.target === modal) {
+             window.onclick = function(event) {
+                    if (event.target == modal) {
                         toggleModal();
                     }
-                }
+             }
 
-                trigger.addEventListener("click", toggleModal);
-                closeButton.addEventListener("click", toggleModal);
-                window.addEventListener("click", windowOnClick);
-
+             closeButton.onclick = function(event) {
+                    toggleModal();
+             }
 
         }
     }

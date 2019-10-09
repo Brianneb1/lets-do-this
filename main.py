@@ -1,13 +1,7 @@
-from copy import copy
-
 from flask import Flask, render_template, send_from_directory, request
-from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_heroku import Heroku
 import os
-import sys
-import json
-
 
 app = Flask(__name__)
 
@@ -15,7 +9,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config["SQLALCHEMY_DATABASE_URI"] = 'postgres://jdbzrwypiusgxn:c18624cf57fc6e64fc19d9c245664691541fc01abeeef0f836be048a74e3243c@ec2-174-129-226-232.compute-1.amazonaws.com:5432/dbnb45i2duvp6o'
 heroku = Heroku(app)
 db = SQLAlchemy(app)
-# migrate = Migrate(app, db)
+
 
 class Task(db.Model):
     task = db.Column(db.String(120), primary_key=True)
