@@ -28,20 +28,7 @@ class Task(db.Model):
     def __repr__(self):
         return '<Task {}>'.format(self.task)
 
-
 @app.route("/")
-def home():
-    return render_template("home.html")
-
-@app.route("/about")
-def about():
-    return render_template("about.html")
-
-@app.route("/fancy")
-def fancy():
-    return render_template("fancy.html")
-
-@app.route("/tasks")
 def tasks():
     app.logger.info("called /tasks")
     tasks = db.session.query(Task).all()
